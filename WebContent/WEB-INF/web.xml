@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>12312313</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>TSAServlet</display-name>
+    <servlet-name>TSAServlet</servlet-name>
+    <servlet-class>lgcns.TSAServlet</servlet-class>
+	<init-param>
+		<description>etherUrl</description>
+		<param-name>etherUrl</param-name>
+		<param-value>http://10.62.35.201:3690</param-value>
+	</init-param>
+	<init-param>
+		<param-name>walletPw</param-name>
+		<param-value>lgcns12##</param-value>
+	</init-param>
+	<init-param>
+		<param-name>walletPh</param-name>
+		<param-value>C:\\EC_MAR\\workspace\\tsa\\WebContent\\UTC--2018-05-17T06-09-44.926005586Z--704d9bc937182d4b2818301df9eadda299aeef47</param-value>
+	</init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TSAServlet</servlet-name>
+    <url-pattern>/TSAServlet</url-pattern>
+  </servlet-mapping>
+  <mime-mapping>
+    <extension>*</extension>
+    <mime-type>application/json</mime-type>
+  </mime-mapping>
+  <resource-ref>
+    <description>Oracle Datasource</description>
+    <res-ref-name>jdbc/oracle</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+</web-app>
