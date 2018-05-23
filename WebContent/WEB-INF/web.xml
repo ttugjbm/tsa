@@ -21,7 +21,7 @@
 	</init-param>
 	<init-param>
 		<param-name>walletPw</param-name>
-		<param-value>lgcns12##</param-value>
+		<param-value>XXXXXX</param-value>
 	</init-param>
 	<init-param>
 		<param-name>walletPh</param-name>
