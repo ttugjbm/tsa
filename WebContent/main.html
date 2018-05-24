@@ -4,8 +4,7 @@
 <meta charset="utf-8">
 <title>Java Servlet JSON</title>
 
-<link rel="stylesheet"
-	href="/tsa/css/sh.css">
+<link rel="stylesheet" href="/tsa/css/sh.css">
 <style type="text/css">
 <!--
 .zui-table {
@@ -83,32 +82,90 @@
 
 <script src="/tsa/js/jquery.min.js"></script>
 <script type="text/javascript">
-     window.addEventListener('load', function() {
+	window.addEventListener('load', function() {
 
-	  // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-	  if (typeof web3 !== 'undefined') {
+		// Checking if Web3 has been injected by the browser (Mist/MetaMask)
+		if (typeof web3 !== 'undefined') {
 
-	    // Use the browser's ethereum provider
-	    var provider = web3.currentProvider
-	    console.log('MetaMask : '+provider)
-	  } else {
-	    console.log('No web3? You should consider trying MetaMask!')
-	  }
+			// Use the browser's ethereum provider
+			var provider = web3.currentProvider
+			console.log('MetaMask : ' + provider)
+		} else {
+			console.log('No web3? You should consider trying MetaMask!')
+		}
 
 	})
 
-	function getContract(contract,hash) { 
-    		var _abi = [{"constant":true,"inputs":[],"name":"ipfsRes","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"hash","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"cedaTime","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"contractTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_ipfsRes","type":"string"},{"name":"_hash","type":"string"},{"name":"_cedaTime","type":"string"}],"payable":true,"stateMutability":"payable","type":"constructor"}];
-            var _contract =    web3.eth.contract(_abi).at(contract);
-             _contract.hash.call(function (err, res) {
-              if(hash == res ){
-            	  alert('성공');
-              }	else{
-            	  alert('실패');
-              }
-              console.log(res);
-            }) ;
-    }
+	function getContract(contract, hash) {
+		var _abi = [ {
+			"constant" : true,
+			"inputs" : [],
+			"name" : "ipfsRes",
+			"outputs" : [ {
+				"name" : "",
+				"type" : "string"
+			} ],
+			"payable" : false,
+			"stateMutability" : "view",
+			"type" : "function"
+		}, {
+			"constant" : true,
+			"inputs" : [],
+			"name" : "hash",
+			"outputs" : [ {
+				"name" : "",
+				"type" : "string"
+			} ],
+			"payable" : false,
+			"stateMutability" : "view",
+			"type" : "function"
+		}, {
+			"constant" : true,
+			"inputs" : [],
+			"name" : "cedaTime",
+			"outputs" : [ {
+				"name" : "",
+				"type" : "string"
+			} ],
+			"payable" : false,
+			"stateMutability" : "view",
+			"type" : "function"
+		}, {
+			"constant" : true,
+			"inputs" : [],
+			"name" : "contractTime",
+			"outputs" : [ {
+				"name" : "",
+				"type" : "uint256"
+			} ],
+			"payable" : false,
+			"stateMutability" : "view",
+			"type" : "function"
+		}, {
+			"inputs" : [ {
+				"name" : "_ipfsRes",
+				"type" : "string"
+			}, {
+				"name" : "_hash",
+				"type" : "string"
+			}, {
+				"name" : "_cedaTime",
+				"type" : "string"
+			} ],
+			"payable" : true,
+			"stateMutability" : "payable",
+			"type" : "constructor"
+		} ];
+		var _contract = web3.eth.contract(_abi).at(contract);
+		_contract.hash.call(function(err, res) {
+			if (hash == res) {
+				alert('성공');
+			} else {
+				alert('실패');
+			}
+			console.log(res);
+		});
+	}
 	function retrive() {
 		// get inputs
 		var tsa = new Object();
@@ -118,38 +175,40 @@
 		tsa.deptCd = $('deptCd').val();
 		tsa.createDate = $('createDate').val();
 		tsa.contract = $('contract').val();
-		$
-				.ajax({
-					url : "TSAServlet",
-					type : 'POST',
-					dataType : 'json',
-					data : JSON.stringify(tsa),
-					contentType : 'application/json',
-					mimeType : 'application/json',
-					success : function(data) {
-						$("tr:has(td)").remove();
-						console.log("성공");
-						console.log(tsa);
+		$.ajax({
+			url : "TSAServlet",
+			type : 'POST',
+			dataType : 'json',
+			data : JSON.stringify(tsa),
+			contentType : 'application/json',
+			mimeType : 'application/json',
+			success : function(data) {
+				$("tr:has(td)").remove();
+				console.log("성공");
+				console.log(tsa);
 
-						var trHTML = '';
-						$ .each( data,
-										function(index, tsa) {
+				var trHTML = '';
+				$.each(data, function(index, tsa) {
+								trHTML += '<tr><td>'
+								+ tsa.hash
+								+ '</td><td><a href="' + 'http://10.62.35.201:8080/ipfs/' +tsa.ipfsRes + '">시점확인증명서(IPFS)</a></td><td>'
+								+ tsa.deptCd
+								+ '</td><td>'
+								+ tsa.createDate
+								+ '</td><td>'
 
-											trHTML += '<tr><td>'
-													+ tsa.hash
-													+ '</td><td><a href="' + 'http://10.62.35.201:8080/ipfs/' +tsa.ipfsRes + '">시점확인증명서(IPFS)</a></td><td>'
-													+ tsa.deptCd + '</td><td>'
-													+ tsa.createDate + '</td><td>' 
-													
-											        + "<a href=javascript:getContract('" + tsa.contract + "','" + tsa.hash + "');>검증</a></td></tr>";
-										});
-						$('#listTabe').append(trHTML);
-					},
-					error : function(data, status, er) {
-						alert("error: " + data + " status: " + status + " er:"
-								+ er);
-					}
-				});
+								+ "<a href=javascript:getContract('"
+								+ tsa.contract + "','"
+								+ tsa.hash
+								+ "');>검증</a></td></tr>";
+							});
+				$('#listTabe').append(trHTML);
+			},
+			error : function(data, status, er) {
+				alert("error: " + data + " status: " + status + " er:"
+						+ er);
+			}
+		});
 	}
 
 	//http://10.62.35.201:8080/ipfs/  
@@ -174,7 +233,7 @@
 				console.log("성공");
 				console.log(tsa);
 				$('#res').val(tsa.res);
- 
+
 			},
 			error : function(data, status, er) {
 				alert("error: " + data + " status: " + status + " er:" + er);
@@ -184,13 +243,13 @@
 </script>
 
 
-</head> 
+</head>
 <body>
 
 
 	<p>
-		<label for="deptCd" class="col-lg-2 control-label">계정:</label>
-		 <input class="text" id="deptCd" name="deptCd" value="A001">
+		<label for="deptCd" class="col-lg-2 control-label">계정:</label> <input
+			class="text" id="deptCd" name="deptCd" value="A001">
 
 	</p>
 	<p>
@@ -200,7 +259,7 @@
 	<p>
 		<!-- a id="buttonB" href="javascript:sendAjax();">시점확인요청</a -->
 	<div id="create" class="button" role="button" tabindex="0">시점확인요청</div>
-	</p> 
+	</p>
 
 	<p>
 		<label for="res" class="col-lg-2 control-label">결과:</label>
