@@ -40,8 +40,8 @@ public class ContractRequestor extends App {
             TsaContract result;
             result = TsaContract.deploy(web3, credentials, BigInteger.valueOf(1000000), BigInteger.valueOf(1000000), _paramList).send();
             String contractAddress = result.getContractAddress();
-            System.out.println("林家:" + contractAddress +"\n");
-            log.append("拌距林家 : "+contractAddress);
+            
+             
             data.put("contract", contractAddress);
             
             
