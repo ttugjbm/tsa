@@ -1,6 +1,6 @@
 # 블럭체인 TSA ( web3j + 시점확인 + IPFS ) 
    
-  1) w3b3j : Java용  web3 API JDK8이상  <https://docs.web3j.io/getting_started.html>
+  1) web3j : Java용  web3 API JDK8이상  <https://docs.web3j.io/getting_started.html>
     
     
 	Usage
