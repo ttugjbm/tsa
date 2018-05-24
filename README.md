@@ -26,12 +26,28 @@
 		Web3j web3 = Web3j.build(new HttpService(addr)); // defaults to http://localhost:8545/
 		Credentials credentials;
 		credentials = WalletUtils.loadCredentials(TSAServlet.walletPw,TSAServlet.walletPh );
-			            
-		Convert.Unit.ETHER).send();
+			             
 		String[] _paramList = { ipfs, hash, createDate };
 		TsaContract result;
 		result = TsaContract.deploy(web3, credentials, BigInteger.valueOf(1000000), BigInteger.valueOf(1000000), _paramList).send();
 		String contractAddress = result.getContractAddress();
+
+	Contract
+		pragma solidity ^0.4.0;
+		
+		contract CedaDocument {
+		    string public ipfsRes ;
+		    string public hash ;
+		    string public cedaTime ;
+		    uint public contractTime ;
+		     
+		    function CedaDocument(string _ipfsRes , string _hash, string _cedaTime) public payable{ 
+		        ipfsRes = _ipfsRes;
+		        hash = _hash;
+		        cedaTime = _cedaTime;
+		        contractTime = now; 
+		    }
+		}
 
 
   2) ipfs : <https://github.com/ipfs/java-ipfs-api> 
